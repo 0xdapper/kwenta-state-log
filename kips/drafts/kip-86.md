@@ -56,6 +56,7 @@ Pseudo-code as follows:
         int price = priceUpdates[0].price;
         require(_validConditionalOrder(_conditionalOrderId, uint(price)));
         ...
+        _payFixedKeeperFee(msg.sender);
     }
 
     function _validConditionalOrder(uint256 _conditionalOrderId, uint price)
@@ -85,6 +86,10 @@ Pseudo-code as follows:
 
         // unknown order type
         return false;
+    }
+
+    function _payFixedKeeperFee(address _keeper) internal {
+        _keeper.call{value: fixedKeeperFee}("");
     }
 ```
 
